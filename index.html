@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Sayang 🎂💖</title>
+  <meta name="description" content="Birthday surprise website untuk sayang – 5 pages, pink theme, CSS cantik, animasi smooth." />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --pink-50:#fff1f7;
+      --pink-100:#ffe4f0;
+      --pink-200:#ffc9e3;
+      --pink-300:#ffa4d1;
+      --pink-400:#ff7dc0;
+      --pink-500:#ff57b0;
+      --pink-600:#ff2d9e;
+      --pink-700:#e00084;
+      --rose-500:#ff4d6d;
+      --bg-grad: radial-gradient(1200px 800px at 20% -10%, #ffd1f1 0%, rgba(255,209,241,0) 50%),
+                 radial-gradient(1000px 700px at 120% 10%, #ffd9f6 0%, rgba(255,217,246,0) 50%),
+                 linear-gradient(120deg, #fff0f6, #ffe6f3 40%, #ffeaf6 60%, #fff0f8);
+      --card:#ffffffcc;
+      --shadow: 0 20px 60px rgba(255, 87, 176, .25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
+      color:#3b2b30;
+      background: var(--bg-grad);
+      overflow:hidden; /* we control pages */
+    }
+
+    /* Floating hearts background */
+    .hearts{
+      pointer-events:none; position:fixed; inset:0; overflow:hidden; z-index:0;
+    }
+    .hearts span{
+      position:absolute; width:16px; height:16px; background: var(--pink-400);
+      transform: rotate(45deg); opacity:.18; filter: blur(0.3px);
+      animation: floatUp linear infinite;
+    }
+    .hearts span::before,.hearts span::after{content:""; position:absolute; width:16px; height:16px; background:inherit; border-radius:50%;}
+    .hearts span::before{ left:-8px;}
+    .hearts span::after{ top:-8px;}
+    @keyframes floatUp{ to{ transform: translateY(-120vh) rotate(45deg);} }
+
+    /* Container */
+    .app{ position:relative; width:100%; height:100vh; display:grid; place-items:center;}
+
+    /* Nav */
+    .topbar{
+      position:fixed; top:12px; left:50%; transform:translateX(-50%);
+      display:flex; gap:10px; padding:8px 12px; background:var(--card);
+      border-radius:999px; box-shadow: var(--shadow); z-index:5; backdrop-filter: blur(8px);
+    }
+    .dot{width:12px; height:12px; border-radius:50%; background:#ffd3ea; box-shadow: inset 0 0 0 2px #ff8ac7; opacity:.6; transition:.25s;}
+    .dot.active{ transform: scale(1.25); background: var(--pink-600); opacity:1;}
+
+    .nav{
+      position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+      display:flex; gap:12px; z-index:5;
+    }
+    .btn{
+      border:none; cursor:pointer; padding:14px 22px; border-radius:14px;
+      background:linear-gradient(180deg, var(--pink-500), var(--pink-600));
+      color:white; font-weight:700; letter-spacing:.3px; box-shadow: var(--shadow);
+      transition: transform .08s ease, filter .2s ease; backdrop-filter: blur(4px);
+    }
+    .btn.secondary{ background:linear-gradient(180deg, #ffd6eb, #ffb3d8); color:#7b2f52;}
+    .btn:active{ transform: translateY(1px) scale(.99);}
+
+    /* Pages */
+    .pages{ position:relative; width:min(1100px, 100%); height:100%;}
+    .page{
+      position:absolute; inset:0; padding:clamp(16px,3vw,28px);
+      display:grid; place-items:center; text-align:center;
+      opacity:0; transform: translateY(30px) scale(.98);
+      transition: opacity .6s ease, transform .6s cubic-bezier(.2,.65,.2,1);
+      pointer-events:none;
+    }
+    .page.active{ opacity:1; transform: translateY(0) scale(1); pointer-events:auto;}
+
+    .card{
+      width:min(900px, 92vw); background:var(--card); border-radius:28px; box-shadow: var(--shadow);
+      padding: clamp(20px, 4vw, 48px); position:relative; overflow:hidden;
+    }
+    .shine{ position:absolute; inset:0; background: radial-gradient(600px 200px at 10% -10%, rgba(255,255,255,.6), transparent 50%);
+      mix-blend-mode: soft-light; pointer-events:none; }
+
+    h1{ font-size: clamp(36px, 5vw, 72px); margin:0 0 10px; line-height:1.05;}
+    h2{ font-size: clamp(22px, 3.2vw, 36px); margin:0 0 12px; color:#7b2f52;}
+    p{ font-size: clamp(16px, 2.2vw, 20px); line-height:1.6; margin:0;}
+
+    /* Page 1 */
+    .hero{
+      background: linear-gradient(180deg, #fff, #fff5fb);
+      position:relative;
+    }
+    .hero h1{ background: linear-gradient(90deg, var(--pink-700), var(--pink-500)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+    .sub{ color:#a04872; font-weight:600;}
+    .ribbons{ position:absolute; inset:auto -20% -60% -20%; height:280px; pointer-events:none; filter: blur(1px); opacity:.5;}
+
+    /* Page 2 Gallery */
+    .gallery{ display:grid; grid-template-columns: repeat(12, 1fr); gap:16px; }
+    .imgcard{ grid-column: span 4; background:#fff; border-radius:24px; overflow:hidden; box-shadow: var(--shadow); transform: translateY(10px); transition: transform .4s ease, box-shadow .4s ease;}
+    .imgcard:hover{ transform: translateY(0); box-shadow: 0 12px 40px rgba(255, 87, 176, .35);}
+    .imgcard img{ width:100%; height:300px; object-fit:cover; display:block;}
+    .imgcap{ padding:12px 16px; font-weight:600; color:#7b2f52;}
+    @media (max-width: 900px){ .imgcard{ grid-column: span 6; } }
+    @media (max-width: 620px){ .imgcard{ grid-column: span 12; } .imgcard img{height:220px} }
+
+    /* Page 3 Message */
+    .msg{ text-align:left; }
+    .msg p{ margin-bottom:14px; }
+    .quote{
+      margin-top:18px; padding:14px 18px; border-left:6px solid var(--pink-500);
+      background: #fff7fb; border-radius:14px;
+    }
+
+    /* Page 4 Video */
+    .video-wrap{ display:grid; gap:14px; }
+    video{ width:100%; border-radius:20px; box-shadow: var(--shadow); background:#000; }
+
+    /* Page 5 Finale */
+    .finale{ display:grid; gap:14px; place-items:center;}
+    .finale h1{ font-size: clamp(34px, 5.2vw, 66px);}
+    .finale .btn{ font-size: clamp(14px, 2vw, 18px);}
+
+    /* Confetti hearts (canvas covers page) */
+    #confettiCanvas{ position:absolute; inset:0; pointer-events:none; border-radius:28px;}
+
+    /* Tooltip */
+    .hint{ position:fixed; right:14px; bottom:14px; background:#ffffffb3; padding:10px 14px; border-radius:12px; box-shadow: var(--shadow); font-size:13px;}
+  </style>
+</head>
+<body>
+  <!-- Floating hearts background generated by JS -->
+  <div class="hearts" id="hearts"></div>
+
+  <!-- Top progress dots -->
+  <div class="topbar" id="topbar" aria-label="Navigasi halaman">
+    <div class="dot" data-i="0"></div>
+    <div class="dot" data-i="1"></div>
+    <div class="dot" data-i="2"></div>
+    <div class="dot" data-i="3"></div>
+    <div class="dot" data-i="4"></div>
+  </div>
+
+  <main class="app">
+    <section class="pages">
+
+      <!-- PAGE 1: Hero -->
+      <section class="page active" id="p1">
+        <div class="card hero">
+          <div class="shine"></div>
+          <h2 class="sub">Special untuk awak 💗</h2>
+          <h1>Happy Birthday Sayang yang ke <span style="white-space:nowrap;">20</span> 🎉</h1>
+          <p>Semoga hari awak dipenuhi tawa, rezeki yang melimpah, dan cinta yang tak pernah pudar. Hari ni semuanya tentang <strong>awak</strong>! 🌸</p>
+          <img class="ribbons" alt="ribbons" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'><defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='%23ff7dc0'/><stop offset='1' stop-color='%23ffb3d8'/></linearGradient></defs><path d='M0,180 C160,110 260,150 420,120 C580,90 700,140 860,110 C1020,80 1100,100 1200,60' fill='none' stroke='url(%23g)' stroke-width='18' stroke-linecap='round'/><path d='M0,260 C200,210 360,250 520,220 C680,190 860,240 1020,200 C1120,180 1160,170 1200,160' fill='none' stroke='url(%23g)' stroke-width='14' stroke-linecap='round' opacity='.8'/></svg>">
+        </div>
+      </section>
+
+      <!-- PAGE 2: 3 Favourite Photos -->
+      <section class="page" id="p2">
+        <div class="card">
+          <div class="shine"></div>
+          <h2>MY FAV OF YOUR PHOTOS 📸</h2>
+          <div class="gallery">
+            <figure class="imgcard">
+              <img src="img1.jpg" alt="Tomeyy tengok kamu senyum – kegemaran" />
+              <figcaption class="imgcap">Tomeyy tengok kamu senyum</figcaption>
+            </figure>
+            <figure class="imgcard">
+              <img src="img2.jpg" alt="Paling FAVVV – kegemaran" />
+              <figcaption class="imgcap">Paling FAVVV</figcaption>
+            </figure>
+            <figure class="imgcard">
+              <img src="img3.jpg" alt="Tantekk bangett – kegemaran" />
+              <figcaption class="imgcap">Tantekk bangett</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 3: Birthday Message -->
+      <section class="page" id="p3">
+        <div class="card msg">
+          <div class="shine"></div>
+          <h2>Untuk awak yang selalu di hati 💞</h2>
+          <p>Sayang, terima kasih sebab sentiasa ada — waktu susah, waktu senang. Awak lah rumah yang paling tenang untuk hati ini.</p>
+          <p>Semoga usia baru ni bawa lebih banyak senyuman, mimpi yang jadi kenyataan, dan keberanian untuk kejar semua cita‑cita awak.</p>
+          <p>Apa pun jadi, I’ll always choose you. Hari ni, esok, dan selamanya. 💐</p>
+          <div class="quote">
+            <em>“You are my today and all of my tomorrows.”</em>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 4: Video Memories -->
+      <section class="page" id="p4">
+        <div class="card">
+          <div class="shine"></div>
+          <h2>Our Memories 🎬</h2>
+          <div class="video-wrap">
+            <video id="memVideo" controls poster="poster.jpg">
+              <!-- Tukar kepada file video awak -->
+              <source src="memories.mp4" type="video/mp4" />
+              Browser awak tak sokong video. Boleh buka dengan pautan terus <a href="memories.mp4">di sini</a>.
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 5: Finale -->
+      <section class="page" id="p5">
+        <div class="card finale">
+          <canvas id="confettiCanvas"></canvas>
+          <div class="shine"></div>
+          <h1>Terima kasih, sayang! 💖</h1>
+          <p>Semoga hari lahir ke‑20 ni jadi permulaan yang paling manis. Love you to the moon and back! 🌙</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+            <button class="btn" id="btnConfetti">🎊 Let it rain hearts!</button>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- Bottom nav -->
+    <nav class="nav" aria-label="Butang navigasi">
+      <button class="btn secondary" id="prev">◀️ loveyou</button>
+      <button class="btn" id="next">missyouu ▶️</button>
+    </nav>
+  </main>
+
+
+  <script>
+    /* ========= Floating hearts background ========= */
+    const hearts = document.getElementById('hearts');
+    for(let i=0;i<48;i++){
+      const s = document.createElement('span');
+      const left = Math.random()*100;
+      const delay = Math.random()*8;
+      const dur = 8 + Math.random()*10;
+      const size = 8 + Math.random()*22;
+      s.style.left = left+'vw';
+      s.style.bottom = (-10 - Math.random()*40)+'vh';
+      s.style.animationDuration = dur+'s';
+      s.style.animationDelay = (-delay)+'s';
+      s.style.width = s.style.height = size+'px';
+      s.style.opacity = 0.10 + Math.random()*0.25;
+      hearts.appendChild(s);
+    }
+
+    /* ========= Page navigation ========= */
+    const pages = [...document.querySelectorAll('.page')];
+    const dots = [...document.querySelectorAll('.dot')];
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    let i = 0;
+
+    function setPage(n){
+      i = Math.max(0, Math.min(pages.length-1, n));
+      pages.forEach((p,idx)=>{
+        p.classList.toggle('active', idx===i);
+      });
+      dots.forEach((d,idx)=>d.classList.toggle('active', idx===i));
+      prev.disabled = i===0; prev.style.opacity = i===0? .6:1;
+      next.textContent = i===pages.length-1 ? 'Tamat 🎀' : 'Seterusnya ▶️';
+    }
+
+    prev.addEventListener('click', ()=> setPage(i-1));
+    next.addEventListener('click', ()=> setPage(i+1));
+    window.addEventListener('keydown', (e)=>{
+      if(e.key==='ArrowRight') setPage(i+1);
+      if(e.key==='ArrowLeft') setPage(i-1);
+    });
+    dots.forEach(d=>d.addEventListener('click',()=> setPage(+d.dataset.i)));
+
+    /* ========= Finale confetti hearts ========= */
+    const canvas = document.getElementById('confettiCanvas');
+    const ctx = canvas.getContext('2d');
+    function sizeCanvas(){
+      const c = canvas; const rect = c.parentElement.getBoundingClientRect();
+      c.width = rect.width; c.height = rect.height;
+    }
+    sizeCanvas();
+    addEventListener('resize', sizeCanvas);
+
+    function heartPath(ctx, size){
+      const s = size;
+      ctx.moveTo(0, s*0.35);
+      ctx.bezierCurveTo(0, 0, s*0.5, 0, s*0.5, s*0.3);
+      ctx.bezierCurveTo(s*0.5, 0, s, 0, s, s*0.35);
+      ctx.bezierCurveTo(s, s*0.7, s*0.6, s*0.9, s*0.5, s);
+      ctx.bezierCurveTo(s*0.4, s*0.9, 0, s*0.7, 0, s*0.35);
+    }
+
+    function rand(min,max){ return Math.random()*(max-min)+min; }
+
+    let particles = [];
+
+    function burst(x, y, n=80){
+      for(let k=0;k<n;k++){
+        particles.push({
+          x, y,
+          vx: rand(-3,3),
+          vy: rand(-5,-1),
+          g: rand(0.04,0.12),
+          s: rand(6,16),
+          a: rand(0,Math.PI*2),
+          r: rand(0.02,0.06),
+          life: 200 + Math.random()*80,
+          hue: 330 + Math.random()*30 // pinkish
+        });
+      }
+    }
+
+    function tick(){
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+      particles.forEach(p=>{
+        p.life -= 1; if(p.life<0) p.life=0;
+        p.vy += p.g; p.x += p.vx; p.y += p.vy; p.a += p.r;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.a);
+        ctx.globalAlpha = Math.max(0, p.life/260);
+        ctx.fillStyle = `hsl(${p.hue}, 90%, 65%)`;
+        ctx.beginPath(); heartPath(ctx, p.s); ctx.fill();
+        ctx.restore();
+      });
+      particles = particles.filter(p=>p.life>0 && p.y<canvas.height+40);
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    const btnC = document.getElementById('btnConfetti');
+    const btnR = document.getElementById('btnReset');
+    btnC.addEventListener('click', (e)=>{
+      const rect = canvas.getBoundingClientRect();
+      burst(rand(0,rect.width), rand(0,rect.height*0.4), 120);
+      setTimeout(()=> burst(rect.width*0.2, rect.height*0.3, 80), 150);
+      setTimeout(()=> burst(rect.width*0.8, rect.height*0.25, 80), 300);
+    });
+    btnR.addEventListener('click', ()=>{ setPage(0); });
+
+    /* autoplay hint: pause video when leaving page 4 */
+    const video = document.getElementById('memVideo');
+    const observer = new MutationObserver(()=>{
+      const onP4 = document.getElementById('p4').classList.contains('active');
+      if(!onP4 && !video.paused) video.pause();
+    });
+    observer.observe(document.getElementById('p4'), {attributes:true});
+
+    /* Start at page 1 */
+    setPage(0);
+  </script>
+</body>
+</html>
