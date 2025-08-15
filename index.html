@@ -320,24 +320,28 @@
     const next = document.getElementById('next');
     let i = 0;
 
-    <script>
-  function resetTypewriter() {
-  const el = document.getElementById('birthday-text');
-  if (!el) return;
-  el.classList.remove('typewriter');  // buang class
-  void el.offsetWidth;                // force reflow
-  el.classList.add('typewriter');     // tambah balik class
-}
-
-// Contoh: Bila page ke-3 dibuka
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-  document.getElementById(pageId).style.display = 'flex';
-
-  if (pageId === 'p3') {
-    resetTypewriter();
+  <script>
+  function resetTypewriter(){
+    const el = document.querySelector('#p3 .typewriter');
+    if(!el) return;
+    el.style.animation = 'none';
+    void el.offsetWidth;
+    el.style.animation = '';
   }
-}
+
+  function setPage(n) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach((page, i) => {
+      page.style.display = (i === n) ? 'flex' : 'none';
+      if (i === n) {
+        if (i === 2) { // page 3
+          resetTypewriter();
+        }
+      }
+    });
+  }
+</script>
+
 
     function setPage(n){
       i = Math.max(0, Math.min(pages.length-1, n));
@@ -437,6 +441,7 @@ function showPage(pageId) {
   </script>
 </body>
 </html>
+
 
 
 
